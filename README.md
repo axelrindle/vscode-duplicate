@@ -6,6 +6,8 @@
 
 > VSCode Extension for duplicating files.
 
+> Inspired by [mrmlnc/vscode-duplicate](https://github.com/mrmlnc/vscode-duplicate)
+
 Easily duplicate files and directories in the explorer view:
 
 ![screenshot](./screenshot.png)
