@@ -1,6 +1,8 @@
-[![CI](https://github.com/axelrindle/vscode-duplicate/actions/workflows/main.yml/badge.svg)](https://github.com/axelrindle/vscode-duplicate/actions/workflows/main.yml)
+<img src="logo.png" align="right" width="128">
 
 # vscode-duplicate
+
+[![CI](https://github.com/axelrindle/vscode-duplicate/actions/workflows/main.yml/badge.svg)](https://github.com/axelrindle/vscode-duplicate/actions/workflows/main.yml)
 
 > VSCode Extension for duplicating files.
 
