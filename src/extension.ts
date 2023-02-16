@@ -1,18 +1,36 @@
 import { basename, dirname, join } from 'path'
 import { commands, ExtensionContext, FileType, Uri, window, workspace } from 'vscode'
 
+function getCopyName(original: string): [string, number] {
+	const split = original.split('.', 2)
+	const hasName = split[0].length > 0
+
+	let name = split[0]
+	let ext = split.length === 2 ? '.' + split[1] : ''
+
+	if (hasName) {
+		name += '-copy'
+	}
+	else {
+		ext += '-copy'
+	}
+
+	return [
+		name + ext,
+		name.length
+	]
+}
+
 export function activate(context: ExtensionContext) {
 	let disposable = commands.registerCommand('duplicate-file.execute', async (uri: Uri) => {
 		const { fsPath } = uri
 		const file = basename(fsPath)
-		const split = file.split('.', 2)
-		const name = split[0]
-		const ext = split.length === 2 ? '.' + split[1] : ''
+		const [copyName, copyNameLength] = getCopyName(file)
 
 		const input = await window.showInputBox({
 			title: 'Enter a name for the duplicated file',
-			value: `${name}-copy${ext}`,
-			valueSelection: [0, name.length + 5]
+			value: copyName,
+			valueSelection: [0, copyNameLength]
 		})
 
 		if (input === undefined) {
