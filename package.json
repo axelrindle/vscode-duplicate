@@ -21,8 +21,7 @@
       "explorer/context": [
         {
           "command": "duplicate-file.execute",
-          "group": "5_cutcopypaste@99",
-          "when": "!explorerResourceIsFolder"
+          "group": "5_cutcopypaste@99"
         }
       ]
     }

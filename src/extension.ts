@@ -19,36 +19,38 @@ export function activate(context: ExtensionContext) {
 			return
 		}
 
-		const directory = dirname(fsPath)
-		const newFile = Uri.file(join(directory, input))
+		const directory = Uri.file(dirname(fsPath))
+		const oldFile = Uri.file(fsPath)
+		const oldStats = await workspace.fs.stat(oldFile)
+		const newFile = Uri.joinPath(directory, input)
 
-		let overwrite = false
 		try {
 			const newStats = await workspace.fs.stat(newFile)
-			console.log(newStats)
-			if (newStats.type === FileType.File) {
-				const answer = await window.showQuickPick(['Yes', 'No'], {
-					title: 'A file with this name does already exist. Overwrite?',
-					canPickMany: false,
-					ignoreFocusOut: true,
-				})
-				if (answer === undefined) {
-					return
-				}
-
-				overwrite = answer === 'Yes'
+			if (oldStats.type !== newStats.type) {
+				window.showErrorMessage('Can\'t change resource type!')
+				return
 			}
-		} catch (error) {
-			
-		}
 
-		if (!overwrite) {
-			return
-		}
+			switch (newStats.type) {
+				case FileType.File:
+					const answer = await window.showQuickPick(['Yes', 'No'], {
+						title: 'A file with this name does already exist. Overwrite?',
+						canPickMany: false,
+						ignoreFocusOut: true,
+					})
+	
+					if (answer !== 'Yes') {
+						return
+					}
+					break;
+				default:
+					window.showErrorMessage('Refusing to overwrite existing ' + FileType[newStats.type])
+					return
+			}
+		} catch (error) { }
 
 		try {
-			await workspace.fs.writeFile(newFile, Buffer.from(''))
-			await workspace.fs.copy(Uri.file(file), newFile, {
+			await workspace.fs.copy(oldFile, newFile, {
 				overwrite: true
 			})
 		} catch (error) {
