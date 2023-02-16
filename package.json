@@ -1,6 +1,6 @@
 {
   "name": "duplicate-file",
-  "displayName": "vscode-duplicate-file",
+  "displayName": "Duplicate Files",
   "description": "Duplicate files.",
   "version": "0.0.1",
   "engines": {
