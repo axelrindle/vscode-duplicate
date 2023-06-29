@@ -16,11 +16,11 @@ function getCopyName(original: string): [string, number] {
 	let newName;
 	let newLength;
 
-	if (lastIndex == -1) {
+	if (lastIndex === -1) {
 		newName = name;
 		newLength = newName.length;
 	}
-	else if (lastIndex == 0) {
+	else if (lastIndex === 0) {
 		newName = '.' + ext;
 		newLength = newName.length;
 	} else {
