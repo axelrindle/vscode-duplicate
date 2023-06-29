@@ -43,13 +43,14 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "extest setup-and-run './out/test/test-*.js' --storage .vscode-test --extensions_dir .vscode-test/extensions --code_settings src/test/settings.json",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
+    "@types/chai": "^4.3.5",
     "@types/glob": "^8.0.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
@@ -58,10 +59,12 @@
     "@typescript-eslint/parser": "^5.49.0",
     "@vscode/test-electron": "^2.2.2",
     "@vscode/vsce": "^2.17.0",
+    "chai": "^4.3.7",
     "eslint": "^8.33.0",
     "glob": "^8.1.0",
     "husky": "^8.0.3",
     "mocha": "^10.1.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vscode-extension-tester": "^5.8.0"
   }
 }
