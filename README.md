@@ -2,7 +2,10 @@
 
 # vscode-duplicate
 
+![latest version](https://img.shields.io/github/v/tag/axelrindle/vscode-duplicate?color=%23FF0099&label=latest)
 [![CI](https://github.com/axelrindle/vscode-duplicate/actions/workflows/main.yml/badge.svg)](https://github.com/axelrindle/vscode-duplicate/actions/workflows/main.yml)
+[![VSCode Marketplace](https://img.shields.io/badge/VSCode-Install-%230066b8?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=axelrindle.duplicate-file)
+[![VSCodium Marketplace](https://img.shields.io/badge/VSCodium-Install-%230066b8?logo=vscodium&logoColor=white)]()
 
 > VSCode Extension for duplicating files.
 
