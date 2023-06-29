@@ -2,22 +2,35 @@ import { basename, dirname, join } from 'path'
 import { commands, ExtensionContext, FileType, Uri, window, workspace } from 'vscode'
 
 function getCopyName(original: string): [string, number] {
-	const split = original.split('.', 2)
-	const hasName = split[0].length > 0
+	const lastIndex = original.lastIndexOf('.');
+	let name = original.slice(0, lastIndex);
+	let ext = original.slice(lastIndex + 1);
 
-	let name = split[0]
-	let ext = split.length === 2 ? '.' + split[1] : ''
-
-	if (hasName) {
+	if (lastIndex !== 0) {
 		name += '-copy'
 	}
 	else {
 		ext += '-copy'
 	}
 
+	let newName;
+	let newLength;
+
+	if (lastIndex == -1) {
+		newName = name;
+		newLength = newName.length;
+	}
+	else if (lastIndex == 0) {
+		newName = '.' + ext;
+		newLength = newName.length;
+	} else {
+		newName = name + '.' + ext;
+		newLength = name.length;
+	}
+
 	return [
-		name + ext,
-		name.length
+		newName,
+		newLength
 	]
 }
 
