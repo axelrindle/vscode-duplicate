@@ -2,7 +2,7 @@
   "name": "duplicate-file",
   "displayName": "Duplicate Files",
   "description": "Duplicate files.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "axelrindle",
   "engines": {
     "vscode": "^1.75.0"
