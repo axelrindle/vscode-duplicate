@@ -28,6 +28,10 @@
       {
         "command": "duplicate-file.execute",
         "title": "Duplicate"
+      },
+      {
+        "command": "duplicate-file.check-extension-version",
+        "title": "Duplicate Files: Check for extension updates"
       }
     ],
     "menus": {
@@ -66,5 +70,8 @@
     "mocha": "^10.1.0",
     "typescript": "^4.9.4",
     "vscode-extension-tester": "^5.8.0"
+  },
+  "dependencies": {
+    "@version-checker/core": "^3.1.0"
   }
 }
