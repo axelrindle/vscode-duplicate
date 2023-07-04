@@ -32,3 +32,19 @@ jobs:
       if: runner.os == 'Linux'
     - run: npm test
       if: runner.os != 'Linux'
+    - name: Set nightly version
+      run: |
+        timestamp=$(date +%Y%m%d%H%M%S)
+        version=$(npm pkg get version | sed 's/\"//g')
+        npm pkg set version="$version-next+$timestamp"
+      if: runner.os == 'Linux'
+    - name: Create VSIX package
+      run: npm run package -- --pre-release
+      if: runner.os == 'Linux'
+    - name: Upload VSIX package artifact
+      if: runner.os == 'Linux'
+      uses: actions/upload-artifact@v3
+      with:
+        name: vsix
+        path: '*.vsix'
+        retention-days: 1
