@@ -1,8 +1,18 @@
+import { stat } from 'fs/promises';
 import { basename, dirname } from 'path';
 import { FileType, Uri, window, workspace } from 'vscode';
 
-function getCopyName(original: string): [string, number] {
-	const lastIndex = original.lastIndexOf('.');
+function getCopyName(original: string, isDirectory: boolean): [string, number] {
+    const lastIndex = original.lastIndexOf('.');
+
+    if (lastIndex === -1 || isDirectory) {
+        const newName = original + '-copy';
+        return [
+            newName,
+            newName.length,
+        ]
+    }
+
 	let name = original.slice(0, lastIndex);
 	let ext = original.slice(lastIndex + 1);
 
@@ -37,7 +47,8 @@ function getCopyName(original: string): [string, number] {
 export default async function duplicate(uri: Uri) {
     const { fsPath } = uri
     const file = basename(fsPath)
-    const [copyName, copyNameLength] = getCopyName(file)
+    const stats = await stat(fsPath)
+    const [copyName, copyNameLength] = getCopyName(file, stats.isDirectory())
 
     const input = await window.showInputBox({
         title: 'Enter a name for the duplicated file',

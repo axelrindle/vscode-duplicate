@@ -26,6 +26,8 @@ describe('simple tests', () => {
         ['test.txt', 'test-copy.txt'],
         ['.htaccess', '.htaccess-copy'],
         ['1.1.1_text-alternative.md', '1.1.1_text-alternative-copy.md'],
+        ['a-directory', 'a-directory-copy'],
+        ['dir.with.dots', 'dir.with.dots-copy'],
     ];
 
     cases.forEach((value) => {
