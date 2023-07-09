@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.1.2 - 2023-07-09
+
+### Fixed
+
+- Lost characters on directories (#3)
+
 ### Added
 
 - Automatic version checks
