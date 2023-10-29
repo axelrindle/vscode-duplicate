@@ -12,6 +12,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
+
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
@@ -19,17 +20,46 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run package
+
+      - id: version
+        name: Check Version Format in Tag
+        uses: nowsprinting/check-version-format-action@v3
+        with:
+          prefix: 'v'
+
       - id: extract-changelog
         uses: sean0x42/markdown-extract@v2
+        if: steps.version.outputs.is_stable == 'true'
         with:
           file: CHANGELOG.md
           pattern: ${{ github.ref_name }}
           no-print-matched-heading: true
       - name: Create Release
         uses: softprops/action-gh-release@v1
+        if: steps.version.outputs.is_stable == 'true'
         with:
+          prerelease: false
           body: |
             ## Changelog
             ${{ steps.extract-changelog.outputs.markdown }}
+          files: |
+            *.vsix
+
+      - name: Get Changelog Url
+        if: steps.version.outputs.is_stable != 'true'
+        run: |
+          SERVER_URL=${{ github.server_url }}
+          REPO=${{ github.repository }}
+          REF=${{ github.ref_name }}
+
+          echo "url=$SERVER_URL/$REPO/blob/$REF/CHANGELOG.md" >> $GITHUB_OUTPUT
+      - name: Create Pre-Release
+        uses: softprops/action-gh-release@v1
+        if: steps.version.outputs.is_stable != 'true'
+        with:
+          prerelease: true
+          body: |
+            This is a **pre-release**. Check the [Unreleased Section](${{ steps.changelog-url.outputs.url }})
+            of the changelog for changes.
           files: |
             *.vsix
