@@ -45,14 +45,15 @@ jobs:
           files: |
             *.vsix
 
-      - name: Get Changelog Url
+      - id: changelog-url
+        name: Generate Changelog Url
         if: steps.version.outputs.is_stable != 'true'
         run: |
           SERVER_URL=${{ github.server_url }}
           REPO=${{ github.repository }}
           REF=${{ github.ref_name }}
 
-          echo "url=$SERVER_URL/$REPO/blob/$REF/CHANGELOG.md" >> $GITHUB_OUTPUT
+          echo "url=$SERVER_URL/$REPO/blob/$REF/CHANGELOG.md#unreleased" >> $GITHUB_OUTPUT
       - name: Create Pre-Release
         uses: softprops/action-gh-release@v1
         if: steps.version.outputs.is_stable != 'true'
