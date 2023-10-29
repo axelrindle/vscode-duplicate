@@ -48,10 +48,11 @@ export default async function duplicate(uri: Uri) {
     const { fsPath } = uri
     const file = basename(fsPath)
     const stats = await stat(fsPath)
-    const [copyName, copyNameLength] = getCopyName(file, stats.isDirectory())
+    const isDirectory = stats.isDirectory()
+    const [copyName, copyNameLength] = getCopyName(file, isDirectory)
 
     const input = await window.showInputBox({
-        title: 'Enter a name for the duplicated file',
+        title: 'Enter a name for the duplicated ' + (isDirectory ? 'directory' : 'file'),
         value: copyName,
         valueSelection: [0, copyNameLength]
     })
