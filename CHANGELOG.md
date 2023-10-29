@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+
+- Typo: Directory duplication displays same message as for files (#6)
+
+### Removed
+
+- Automated update checks (#4)
+
 ## v0.1.2 - 2023-07-09
 
 ### Fixed
