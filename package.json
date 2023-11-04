@@ -23,11 +23,12 @@
   "homepage": "https://github.com/axelrindle/vscode-duplicate#readme",
   "icon": "logo.png",
   "main": "./out/extension.js",
+  "l10n": "./lang",
   "contributes": {
     "commands": [
       {
         "command": "duplicate-file.execute",
-        "title": "Duplicate"
+        "title": "%extension.duplicate.title%"
       }
     ],
     "menus": {
@@ -66,5 +67,8 @@
     "mocha": "^10.1.0",
     "typescript": "^4.9.4",
     "vscode-extension-tester": "^5.8.0"
+  },
+  "dependencies": {
+    "@vscode/l10n": "^0.0.16"
   }
 }

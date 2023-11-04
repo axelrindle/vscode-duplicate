@@ -1,6 +1,6 @@
 import { stat } from 'fs/promises';
 import { basename, dirname } from 'path';
-import { FileType, Uri, window, workspace } from 'vscode';
+import { FileType, Uri, l10n, window, workspace } from 'vscode';
 
 function getCopyName(original: string, isDirectory: boolean): [string, number] {
     const lastIndex = original.lastIndexOf('.');
@@ -44,6 +44,13 @@ function getCopyName(original: string, isDirectory: boolean): [string, number] {
 	]
 }
 
+function buildInputTitle(isDirectory: boolean): string {
+    const type = l10n.t(isDirectory ? 'directory' : 'file')
+    const message = l10n.t('Enter a name for the duplicated {0}', type)
+
+    return message
+}
+
 export default async function duplicate(uri: Uri) {
     const { fsPath } = uri
     const file = basename(fsPath)
@@ -52,7 +59,7 @@ export default async function duplicate(uri: Uri) {
     const [copyName, copyNameLength] = getCopyName(file, isDirectory)
 
     const input = await window.showInputBox({
-        title: 'Enter a name for the duplicated ' + (isDirectory ? 'directory' : 'file'),
+        title: buildInputTitle(isDirectory),
         value: copyName,
         valueSelection: [0, copyNameLength]
     })
