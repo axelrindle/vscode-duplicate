@@ -1,0 +1,14 @@
+{
+    "title.duplicate.file": "Enter a name for the duplicated file:",
+    "title.duplicate.directory": "Enter a name for the duplicated directory:",
+
+    "title.overwrite.file": "A file with this name does already exist. Overwrite?",
+    "title.overwrite.directory": "A file with this name does already exist. Overwrite?",
+
+    "action.yes": "Yes",
+    "action.no": "No",
+
+    "error.type-change": "Can't change resource type!",
+    "error.refuse-overwrite.file": "Refusing to overwrite existing file!",
+    "error.refuse-overwrite.directory": "Refusing to overwrite existing directory!"
+}

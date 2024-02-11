@@ -1,7 +1,7 @@
 {
   "name": "duplicate-file",
   "displayName": "Duplicate Files",
-  "description": "Duplicate files.",
+  "description": "Duplicate files and directories.",
   "version": "0.2.0",
   "publisher": "axelrindle",
   "engines": {
@@ -67,8 +67,5 @@
     "mocha": "^10.1.0",
     "typescript": "^4.9.4",
     "vscode-extension-tester": "^5.8.0"
-  },
-  "dependencies": {
-    "@vscode/l10n": "^0.0.16"
   }
 }

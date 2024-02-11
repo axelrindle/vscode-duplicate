@@ -44,13 +44,6 @@ function getCopyName(original: string, isDirectory: boolean): [string, number] {
 	]
 }
 
-function buildInputTitle(isDirectory: boolean): string {
-    const type = l10n.t(isDirectory ? 'directory' : 'file')
-    const message = l10n.t('Enter a name for the duplicated {0}', type)
-
-    return message
-}
-
 export default async function duplicate(uri: Uri) {
     const { fsPath } = uri
     const file = basename(fsPath)
@@ -59,7 +52,7 @@ export default async function duplicate(uri: Uri) {
     const [copyName, copyNameLength] = getCopyName(file, isDirectory)
 
     const input = await window.showInputBox({
-        title: buildInputTitle(isDirectory),
+        title: l10n.t(`title.duplicate.${isDirectory ? 'directory' : 'file'}`),
         value: copyName,
         valueSelection: [0, copyNameLength]
     })
@@ -76,24 +69,27 @@ export default async function duplicate(uri: Uri) {
     try {
         const newStats = await workspace.fs.stat(newFile)
         if (oldStats.type !== newStats.type) {
-            window.showErrorMessage('Can\'t change resource type!')
+            window.showErrorMessage(l10n.t('error.type-change'))
             return
         }
 
         switch (newStats.type) {
             case FileType.File:
-                const answer = await window.showQuickPick(['Yes', 'No'], {
-                    title: 'A file with this name does already exist. Overwrite?',
+                const answer = await window.showQuickPick([
+                    l10n.t('action.yes'),
+                    l10n.t('action.no'),
+                ], {
+                    title: l10n.t(`title.overwrite.${isDirectory ? 'directory' : 'file'}`),
                     canPickMany: false,
                     ignoreFocusOut: true,
                 })
 
-                if (answer !== 'Yes') {
+                if (answer !== l10n.t('action.yes')) {
                     return
                 }
                 break;
             default:
-                window.showErrorMessage('Refusing to overwrite existing ' + FileType[newStats.type])
+                window.showErrorMessage(l10n.t(`error.refuse-overwrite.${FileType[newStats.type].toLowerCase()}`))
                 return
         }
     } catch (error) { }

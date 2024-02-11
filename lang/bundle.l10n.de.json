@@ -1,5 +1,14 @@
 {
-    "file": "die duplizierte Datei",
-    "directory": "das duplizierte Verzeichnis",
-    "Enter a name for the duplicated {0}": "Gib einen Namen für {0} an"
+    "title.duplicate.file": "Gib einen Namen für die duplizierte Datei ein:",
+    "title.duplicate.directory": "Gib einen Namen für das duplizierte Verzeichnis ein:",
+
+    "title.overwrite.file": "Diese Datei existiert bereits. Überschreiben?",
+    "title.overwrite.directory": "Dieses Verzeichnis existiert bereits. Überschreiben?",
+
+    "action.yes": "Ja",
+    "action.no": "Nein",
+
+    "error.type-change": "Kann den Typen nicht ändern!",
+    "error.refuse-overwrite.file": "Die Datei existiert bereits!",
+    "error.refuse-overwrite.directory": "Das Verzeichnis existiert bereits!"
 }
