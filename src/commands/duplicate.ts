@@ -52,17 +52,26 @@ export default async function duplicate(uri: Uri, config: Config) {
     const isDirectory = stats.isDirectory()
     const [copyName, copyNameLength] = getCopyName(file, isDirectory)
 
+    const directory = Uri.file(dirname(fsPath))
+
     const input = await window.showInputBox({
         title: l10n.t(`title.duplicate.${isDirectory ? 'directory' : 'file'}`),
         value: copyName,
-        valueSelection: [0, copyNameLength]
+        valueSelection: [0, copyNameLength],
+        async validateInput(value) {
+            try {
+                const stats = await workspace.fs.stat(Uri.joinPath(directory, value))
+                return `A ${stats.type} with the name ${value} does already exist!`
+            } catch (error) {
+                return null
+            }
+        },
     })
 
     if (input === undefined) {
         return
     }
 
-    const directory = Uri.file(dirname(fsPath))
     const oldFile = Uri.file(fsPath)
     const oldStats = await workspace.fs.stat(oldFile)
     const newFile = Uri.joinPath(directory, input)
