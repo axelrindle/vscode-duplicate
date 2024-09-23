@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Localization (English, German)
+- Configuration
+- Duplicated file is opened in the editor
 
 ## v0.2.0 - 2023-11-04
 

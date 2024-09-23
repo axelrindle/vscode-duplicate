@@ -38,7 +38,20 @@
           "group": "5_cutcopypaste@99"
         }
       ]
-    }
+    },
+    "configuration": [
+        {
+            "title": "%extension.duplicate.title%",
+            "properties": {
+                "duplicate-file.openFile": {
+                    "type": "boolean",
+                    "default": true,
+                    "title": "%extension.duplicate.config.open.title%",
+                    "description": "%extension.duplicate.config.open.desc%"
+                }
+            }
+        }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

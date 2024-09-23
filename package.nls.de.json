@@ -1,3 +1,6 @@
 {
-    "extension.duplicate.title": "Duplizieren"
+    "extension.duplicate.title": "Duplizieren",
+
+    "extension.duplicate.config.open.title": "Datei öffnen",
+    "extension.duplicate.config.open.desc": "Öffnet die neue Datei, nachdem sie dupliziert wurde. Gilt nicht für Verzeichnisse."
 }

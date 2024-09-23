@@ -1,6 +1,7 @@
 import { stat } from 'fs/promises';
 import { basename, dirname } from 'path';
 import { FileType, Uri, l10n, window, workspace } from 'vscode';
+import Config from '../config';
 
 function getCopyName(original: string, isDirectory: boolean): [string, number] {
     const lastIndex = original.lastIndexOf('.');
@@ -44,7 +45,7 @@ function getCopyName(original: string, isDirectory: boolean): [string, number] {
 	]
 }
 
-export default async function duplicate(uri: Uri) {
+export default async function duplicate(uri: Uri, config: Config) {
     const { fsPath } = uri
     const file = basename(fsPath)
     const stats = await stat(fsPath)
@@ -98,6 +99,11 @@ export default async function duplicate(uri: Uri) {
         await workspace.fs.copy(oldFile, newFile, {
             overwrite: true
         })
+
+        if (config.get('openFile') && oldStats.type === FileType.File) {
+            const doc = await workspace.openTextDocument(newFile)
+            await window.showTextDocument(doc)
+        }
     } catch (error) {
         console.error(error)
     }
