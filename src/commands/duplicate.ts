@@ -52,8 +52,12 @@ const fileTypeMap: Record<FileType, string> = {
     [FileType.Unknown]: 'file',
 }
 
-export default async function duplicate(uri: Uri, config: Config) {
-    const { fsPath } = uri
+export default async function duplicate(uri: Uri | undefined, config: Config) {
+    const fsPath = uri?.fsPath ?? window.activeTextEditor?.document.uri.fsPath
+    if (!fsPath) {
+        return
+    }
+
     const file = basename(fsPath)
     const stats = await stat(fsPath)
     const isDirectory = stats.isDirectory()

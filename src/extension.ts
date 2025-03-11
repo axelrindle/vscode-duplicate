@@ -9,7 +9,7 @@ export async function activate(context: ExtensionContext) {
 
     context.subscriptions.push(commands.registerCommand(
         `${EXTENSION_ID}.execute`,
-        (uri: Uri) => duplicate(uri, config)),
+        (uri?: Uri) => duplicate(uri, config)),
     )
 }
 
