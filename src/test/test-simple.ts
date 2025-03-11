@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
 import { join } from 'node:path'
-import { DefaultTreeSection, EditorView, InputBox, VSBrowser, Workbench } from 'vscode-extension-tester'
+import { EditorView, InputBox, TreeSection, VSBrowser, Workbench } from 'vscode-extension-tester'
 import { captureInput, triggerDuplicate } from './utils'
 
 describe('simple tests', () => {
-    let tree: DefaultTreeSection
+    let tree: TreeSection
 
     before(async () => {
         await VSBrowser.instance.openResources(join('src', 'test', 'fixtures'))
@@ -13,8 +13,9 @@ describe('simple tests', () => {
         const activityBar = workbench.getActivityBar()
         const controls = await activityBar.getViewControl('Explorer')
         const view = await controls?.openView()
+        const sections = await view?.getContent().getSections()
 
-        tree = await view?.getContent().getSection(s => s instanceof DefaultTreeSection) as DefaultTreeSection
+        tree = sections?.at(0) as TreeSection
     })
 
     const cases: string[][] = [
