@@ -3,12 +3,17 @@
     "title.duplicate.directory": "Enter a name for the duplicated directory:",
 
     "title.overwrite.file": "A file with this name does already exist. Overwrite?",
-    "title.overwrite.directory": "A file with this name does already exist. Overwrite?",
+    "title.overwrite.directory": "A directory with this name does already exist. Overwrite?",
 
     "action.yes": "Yes",
     "action.no": "No",
 
+    "filetype.directory": "directory",
+    "filetype.file": "file",
+    "filetype.symlink": "symbolic link",
+
     "error.type-change": "Can't change resource type!",
     "error.refuse-overwrite.file": "Refusing to overwrite existing file!",
-    "error.refuse-overwrite.directory": "Refusing to overwrite existing directory!"
+    "error.refuse-overwrite.directory": "Refusing to overwrite existing directory!",
+    "error.exists": "A {type} with the name {name} does already exist!"
 }

@@ -8,7 +8,12 @@
     "action.yes": "Ja",
     "action.no": "Nein",
 
+    "filetype.directory": "Ein Verzeichnis",
+    "filetype.file": "Eine Datei",
+    "filetype.symlink": "Einen symbolischen Link",
+
     "error.type-change": "Kann den Typen nicht ändern!",
     "error.refuse-overwrite.file": "Die Datei existiert bereits!",
-    "error.refuse-overwrite.directory": "Das Verzeichnis existiert bereits!"
+    "error.refuse-overwrite.directory": "Das Verzeichnis existiert bereits!",
+    "error.exists": "{type} mit dem Namen {name} gibt es schon!"
 }

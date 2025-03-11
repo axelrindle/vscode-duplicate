@@ -2,10 +2,10 @@
   "name": "duplicate-file",
   "displayName": "Duplicate Files",
   "description": "Duplicate files and directories.",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "publisher": "axelrindle",
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.90.0"
   },
   "categories": [
     "Other"
@@ -40,17 +40,17 @@
       ]
     },
     "configuration": [
-        {
-            "title": "%extension.duplicate.title%",
-            "properties": {
-                "duplicate-file.openFile": {
-                    "type": "boolean",
-                    "default": true,
-                    "title": "%extension.duplicate.config.open.title%",
-                    "description": "%extension.duplicate.config.open.desc%"
-                }
-            }
+      {
+        "title": "%extension.duplicate.title%",
+        "properties": {
+          "duplicate-file.openFile": {
+            "type": "boolean",
+            "default": true,
+            "title": "%extension.duplicate.config.open.title%",
+            "description": "%extension.duplicate.config.open.desc%"
+          }
         }
+      }
     ]
   },
   "scripts": {
@@ -62,23 +62,22 @@
     "package": "vsce package"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.6",
-    "@types/chai": "^4.3.5",
-    "@types/glob": "^8.0.1",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
-    "@types/vscode": "^1.75.0",
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
-    "@vscode/test-electron": "^2.2.2",
-    "@vscode/vsce": "^2.17.0",
-    "chai": "^4.3.7",
-    "eslint": "^8.33.0",
-    "glob": "^8.1.0",
-    "husky": "^8.0.3",
-    "mocha": "^10.1.0",
-    "typescript": "^4.9.4",
-    "vscode-extension-tester": "^5.8.0"
+    "@actcoding/eslint-config": "^0.0.8",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@types/chai": "^5.2.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "1.90.0",
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.2",
+    "chai": "^5.2.0",
+    "eslint": "^9.22.0",
+    "glob": "^11.0.1",
+    "husky": "^9.1.7",
+    "mocha": "^11.1.0",
+    "typescript": "^5.8.2",
+    "vscode-extension-tester": "^8.13.0"
   }
 }

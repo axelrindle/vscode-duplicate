@@ -21,7 +21,7 @@ export default class Config extends TypedEventEmitter<LocalEventTypes> implement
         super()
 
         const {
-            subscriptions
+            subscriptions,
         } = context
 
         this.delegate = workspace.getConfiguration(EXTENSION_ID)
@@ -36,7 +36,7 @@ export default class Config extends TypedEventEmitter<LocalEventTypes> implement
                 this.delegate = workspace.getConfiguration(EXTENSION_ID)
 
                 this.emit('change')
-            })
+            }),
         )
     }
 

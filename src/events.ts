@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import EventEmitter from 'events'
+import EventEmitter from 'node:events'
 
 export type EventTypes = Record<string, any>
 
@@ -16,14 +15,14 @@ export default class TypedEventEmitter<TEvents extends EventTypes> {
 
     public on<TEventName extends keyof TEvents & string>(
         eventName: TEventName,
-        handler: (...eventArg: TEvents[TEventName]) => void
+        handler: (...eventArg: TEvents[TEventName]) => void,
     ) {
         this.emitter.on(eventName, handler as any)
     }
 
     public off<TEventName extends keyof TEvents & string>(
         eventName: TEventName,
-        handler: (...eventArg: TEvents[TEventName]) => void
+        handler: (...eventArg: TEvents[TEventName]) => void,
     ) {
         this.emitter.off(eventName, handler as any)
     }

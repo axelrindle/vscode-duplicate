@@ -1,5 +1,26 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    "editor.formatOnSave": false,
+    "editor.foldingImportsByDefault": true,
+    "editor.defaultFormatter": null,
+    "editor.linkedEditing": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "javascript.preferences.quoteStyle": "single",
+    "javascript.format.semicolons": "remove",
+    "javascript.preferences.importModuleSpecifierEnding": "js",
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.formatOnSave": true,
+    },
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.format.semicolons": "remove",
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.formatOnSave": true,
+    },
+
     "files.exclude": {
         "out": false // set this to true to hide the "out" folder with the compiled JS files
     },

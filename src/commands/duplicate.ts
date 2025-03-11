@@ -1,48 +1,55 @@
-import { stat } from 'fs/promises';
-import { basename, dirname } from 'path';
-import { FileType, Uri, l10n, window, workspace } from 'vscode';
-import Config from '../config';
+import { stat } from 'node:fs/promises'
+import { basename, dirname } from 'node:path'
+import { FileSystemError, FileType, InputBoxValidationSeverity, Uri, l10n, window, workspace } from 'vscode'
+import Config from '../config'
 
 function getCopyName(original: string, isDirectory: boolean): [string, number] {
-    const lastIndex = original.lastIndexOf('.');
+    const lastIndex = original.lastIndexOf('.')
 
     if (lastIndex === -1 || isDirectory) {
-        const newName = original + '-copy';
+        const newName = original + '-copy'
         return [
             newName,
             newName.length,
         ]
     }
 
-	let name = original.slice(0, lastIndex);
-	let ext = original.slice(lastIndex + 1);
+    let name = original.slice(0, lastIndex)
+    let ext = original.slice(lastIndex + 1)
 
-	if (lastIndex !== 0) {
-		name += '-copy'
-	}
-	else {
-		ext += '-copy'
-	}
+    if (lastIndex !== 0) {
+        name += '-copy'
+    }
+    else {
+        ext += '-copy'
+    }
 
-	let newName;
-	let newLength;
+    let newName
+    let newLength
 
-	if (lastIndex === -1) {
-		newName = name;
-		newLength = newName.length;
-	}
-	else if (lastIndex === 0) {
-		newName = '.' + ext;
-		newLength = newName.length;
-	} else {
-		newName = name + '.' + ext;
-		newLength = name.length;
-	}
+    if (lastIndex === -1) {
+        newName = name
+        newLength = newName.length
+    }
+    else if (lastIndex === 0) {
+        newName = '.' + ext
+        newLength = newName.length
+    } else {
+        newName = name + '.' + ext
+        newLength = name.length
+    }
 
-	return [
-		newName,
-		newLength
-	]
+    return [
+        newName,
+        newLength,
+    ]
+}
+
+const fileTypeMap: Record<FileType, string> = {
+    [FileType.Directory]: 'directory',
+    [FileType.File]: 'file',
+    [FileType.SymbolicLink]: 'symlink',
+    [FileType.Unknown]: 'file',
 }
 
 export default async function duplicate(uri: Uri, config: Config) {
@@ -61,9 +68,18 @@ export default async function duplicate(uri: Uri, config: Config) {
         async validateInput(value) {
             try {
                 const stats = await workspace.fs.stat(Uri.joinPath(directory, value))
-                return `A ${stats.type} with the name ${value} does already exist!`
+                return {
+                    message: l10n.t('error.exists', {
+                        type: l10n.t(`filetype.${fileTypeMap[stats.type]}`),
+                        name: value,
+                    }),
+                    severity: isDirectory ? InputBoxValidationSeverity.Error : InputBoxValidationSeverity.Warning,
+                }
             } catch (error) {
-                return null
+                if (!(error instanceof FileSystemError) || error.code !== 'FileNotFound') {
+                    console.error(error)
+                    return `${error}`
+                }
             }
         },
     })
@@ -97,16 +113,21 @@ export default async function duplicate(uri: Uri, config: Config) {
                 if (answer !== l10n.t('action.yes')) {
                     return
                 }
-                break;
+                break
             default:
                 window.showErrorMessage(l10n.t(`error.refuse-overwrite.${FileType[newStats.type].toLowerCase()}`))
                 return
         }
-    } catch (error) { }
+    } catch (error) {
+        if (!(error instanceof FileSystemError) || error.code !== 'FileNotFound') {
+            console.error(error)
+            return
+        }
+    }
 
     try {
         await workspace.fs.copy(oldFile, newFile, {
-            overwrite: true
+            overwrite: true,
         })
 
         if (config.get('openFile') && oldStats.type === FileType.File) {
