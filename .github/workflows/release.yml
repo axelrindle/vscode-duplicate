@@ -23,7 +23,7 @@ jobs:
 
       - id: version
         name: Check Version Format in Tag
-        uses: nowsprinting/check-version-format-action@v3
+        uses: nowsprinting/check-version-format-action@v4
         with:
           prefix: 'v'
 
