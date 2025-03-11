@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import assert from 'node:assert/strict'
 import { join } from 'node:path'
 import { ActivityBar, DefaultTreeSection, SideBarView, VSBrowser, ViewContent } from 'vscode-extension-tester'
 import { captureInput, triggerDuplicate } from './utils'
@@ -38,7 +38,7 @@ describe('simple tests', () => {
             await triggerDuplicate(tree, filenameOriginal)
 
             const text = await captureInput()
-            expect(text).to.eq(filenameCopy)
+            assert.equal(text, filenameCopy)
         })
     })
 
