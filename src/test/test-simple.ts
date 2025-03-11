@@ -1,25 +1,20 @@
 import assert from 'node:assert/strict'
 import { join } from 'node:path'
-import { ActivityBar, DefaultTreeSection, SideBarView, VSBrowser, ViewContent } from 'vscode-extension-tester'
+import { DefaultTreeSection, EditorView, InputBox, VSBrowser, Workbench } from 'vscode-extension-tester'
 import { captureInput, triggerDuplicate } from './utils'
 
 describe('simple tests', () => {
-    let content: ViewContent
     let tree: DefaultTreeSection
 
     before(async () => {
-        // we will be looking at the explorer view
-        // first we need to open a folder to get some items into the view
-        await VSBrowser.instance.openResources(join('src', 'test', 'fixtures'));
-        // make sure the view is open
-        (await new ActivityBar().getViewControl('Explorer'))?.openView()
+        await VSBrowser.instance.openResources(join('src', 'test', 'fixtures'))
 
-        // now to initialize the view
-        // this object is basically just a container for two parts: title & content
-        const view = new SideBarView()
-        content = view.getContent()
+        const workbench = new Workbench()
+        const activityBar = workbench.getActivityBar()
+        const controls = await activityBar.getViewControl('Explorer')
+        const view = await controls?.openView()
 
-        tree = await content.getSection('fixtures') as DefaultTreeSection
+        tree = await view?.getContent().getSection(s => s instanceof DefaultTreeSection) as DefaultTreeSection
     })
 
     const cases: string[][] = [
