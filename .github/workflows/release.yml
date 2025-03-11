@@ -35,7 +35,7 @@ jobs:
           pattern: ${{ github.ref_name }}
           no-print-matched-heading: true
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: steps.version.outputs.is_stable == 'true'
         with:
           prerelease: false
@@ -55,7 +55,7 @@ jobs:
 
           echo "url=$SERVER_URL/$REPO/blob/$REF/CHANGELOG.md#unreleased" >> $GITHUB_OUTPUT
       - name: Create Pre-Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: steps.version.outputs.is_stable != 'true'
         with:
           prerelease: true
