@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configuration
 - Duplicated file is opened in the editor
 
+### Changed
+
+- Require at least VSCode 1.90
+
 ## v0.2.0 - 2023-11-04
 
 ### Fixed
