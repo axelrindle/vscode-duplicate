@@ -70,7 +70,7 @@
     "@types/node": "20.x",
     "@types/vscode": "1.90.0",
     "@vscode/test-electron": "^2.4.1",
-    "@vscode/vsce": "^3.2.2",
+    "@vscode/vsce": "^3.4.2",
     "eslint": "^9.22.0",
     "glob": "^11.0.1",
     "husky": "^9.1.7",
