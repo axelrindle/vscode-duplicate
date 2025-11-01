@@ -135,8 +135,13 @@ export default async function duplicate(arg: Uri | undefined, config: Config) {
         })
 
         if (config.get('openFile') && oldStats.type === FileType.File) {
-            const doc = await workspace.openTextDocument(newFile)
-            await window.showTextDocument(doc)
+            if (newFile.path.endsWith('.ipynb')) {
+                const doc = await workspace.openNotebookDocument(newFile)
+                await window.showNotebookDocument(doc)
+            } else {
+                const doc = await workspace.openTextDocument(newFile)
+                await window.showTextDocument(doc)
+            }
         }
     } catch (error) {
         console.error(error)
