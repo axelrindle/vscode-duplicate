@@ -62,20 +62,19 @@
     "package": "vsce package"
   },
   "devDependencies": {
-    "@actcoding/eslint-config": "^0.0.8",
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "@types/glob": "^8.1.0",
+    "@actcoding/eslint-config": "^0.0.11",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@types/vscode": "1.90.0",
-    "@vscode/test-electron": "^2.4.1",
-    "@vscode/vsce": "^3.2.2",
-    "eslint": "^9.22.0",
-    "glob": "^11.0.1",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.6.2",
+    "eslint": "^9.39.0",
+    "glob": "^11.0.3",
     "husky": "^9.1.7",
-    "mocha": "^11.1.0",
-    "typescript": "^5.8.2",
-    "vscode-extension-tester": "^8.13.0"
+    "mocha": "^11.7.4",
+    "typescript": "^5.9.3",
+    "vscode-extension-tester": "^8.19.0"
   }
 }
