@@ -1,14 +1,13 @@
 import { configActDefault } from '@actcoding/eslint-config'
+import { defineConfig } from 'eslint/config'
 
-/** @type {import('eslint').Linter.Config[]} */
-const config = [
+export default defineConfig([
     ...configActDefault,
     {
+        name: 'app/ignores',
         ignores: [
             '*.d.ts',
             'out/',
         ],
     },
-]
-
-export default config
+])
