@@ -1,6 +1,5 @@
-import { stat } from 'node:fs/promises'
 import { basename, dirname } from 'node:path'
-import { FileSystemError, FileType, InputBoxValidationSeverity, Uri, l10n, window, workspace } from 'vscode'
+import { FileSystemError, FileType, InputBoxValidationSeverity, l10n, Uri, window, workspace } from 'vscode'
 import Config from '../config'
 
 function getCopyName(original: string, isDirectory: boolean): [string, number] {
@@ -52,15 +51,17 @@ const fileTypeMap: Record<FileType, string> = {
     [FileType.Unknown]: 'file',
 }
 
-export default async function duplicate(uri: Uri | undefined, config: Config) {
-    const fsPath = uri?.fsPath ?? window.activeTextEditor?.document.uri.fsPath
+export default async function duplicate(arg: Uri | undefined, config: Config) {
+    const fsPath = arg?.fsPath ?? window.activeTextEditor?.document.uri.fsPath
     if (!fsPath) {
         return
     }
 
+    const oldFile = Uri.file(fsPath)
+    const oldStats = await workspace.fs.stat(oldFile)
+
     const file = basename(fsPath)
-    const stats = await stat(fsPath)
-    const isDirectory = stats.isDirectory()
+    const isDirectory = oldStats.type == FileType.Directory
     const [copyName, copyNameLength] = getCopyName(file, isDirectory)
 
     const directory = Uri.file(dirname(fsPath))
@@ -92,8 +93,6 @@ export default async function duplicate(uri: Uri | undefined, config: Config) {
         return
     }
 
-    const oldFile = Uri.file(fsPath)
-    const oldStats = await workspace.fs.stat(oldFile)
     const newFile = Uri.joinPath(directory, input)
 
     try {
