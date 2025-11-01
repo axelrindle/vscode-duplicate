@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { join } from 'node:path'
-import { EditorView, InputBox, TreeSection, VSBrowser, Workbench } from 'vscode-extension-tester'
+import { TreeSection, VSBrowser, Workbench } from 'vscode-extension-tester'
 import { captureInput, triggerDuplicate } from './utils'
 
 describe('simple tests', () => {
