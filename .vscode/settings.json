@@ -28,5 +28,18 @@
         "out": true // set this to false to include "out" folder in search results
     },
     // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
-    "typescript.tsc.autoDetect": "off"
+    "typescript.tsc.autoDetect": "off",
+
+    "i18n-ally.enabledFrameworks": [
+        "vscode",
+    ],
+    "i18n-ally.enabledParsers": [
+        "json"
+    ],
+    "i18n-ally.localesPaths": [
+        "lang"
+    ],
+    "i18n-ally.dirStructure": "file",
+    "i18n-ally.sourceLanguage": "en",
+    "i18n-ally.pathMatcher": "bundle.l10n.{locale}.json",
 }
