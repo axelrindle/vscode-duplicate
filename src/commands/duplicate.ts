@@ -1,6 +1,7 @@
 import { basename, dirname } from 'node:path'
-import { FileSystemError, FileType, InputBoxValidationSeverity, l10n, Uri, window, workspace } from 'vscode'
+import { FileSystemError, FileType, InputBoxValidationSeverity, Uri, window, workspace } from 'vscode'
 import Config from '../config'
+import l10n from '../l10n'
 
 function getCopyName(original: string, isDirectory: boolean): [string, number] {
     const lastIndex = original.lastIndexOf('.')
