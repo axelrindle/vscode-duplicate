@@ -54,7 +54,7 @@
         {
           "command": "duplicate-file.executeWithExtensionChange",
           "group": "5_cutcopypaste@100",
-          "when": "config.duplicate-file.enableDuplicateWithExtensionChange && resourceExtname != ''"
+          "when": "config.duplicate-file.enableDuplicateWithExtensionChange"
         }
       ]
     },

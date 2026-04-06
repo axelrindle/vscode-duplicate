@@ -70,14 +70,27 @@ export async function duplicateWithExtensionChange(arg: Uri | undefined, config:
     const file = basename(fsPath)
     const directory = Uri.file(dirname(fsPath))
 
-    // Get current extension (without dot)
-    const lastIndex = file.lastIndexOf('.')
-    const currentExtension = lastIndex !== -1 ? file.slice(lastIndex + 1) : ''
-    const baseName = lastIndex !== -1 ? file.slice(0, lastIndex) : file
+    // Handle dotfiles (files starting with '.') differently
+    let baseName: string
+    let currentExtension: string
+    let inputValue: string
+
+    if (file.startsWith('.')) {
+        // For dotfiles, treat the whole filename as base and allow adding extensions
+        baseName = file
+        currentExtension = ''
+        inputValue = ''
+    } else {
+        // For regular files, use the existing logic
+        const lastIndex = file.lastIndexOf('.')
+        currentExtension = lastIndex !== -1 ? file.slice(lastIndex + 1) : ''
+        baseName = lastIndex !== -1 ? file.slice(0, lastIndex) : file
+        inputValue = currentExtension
+    }
 
     const input = await window.showInputBox({
         title: l10n.t('title.duplicate.extension-change'),
-        value: currentExtension,
+        value: inputValue,
         placeHolder: l10n.t('placeholder.extension'),
         async validateInput(value) {
             if (!value || value.trim() === '') {
