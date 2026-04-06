@@ -1,6 +1,12 @@
 {
     "extension.duplicate.title": "Duplizieren",
+    "extension.duplicate.extension-change.title": "Duplizieren (Erweiterung ändern)",
 
     "extension.duplicate.config.open.title": "Datei öffnen",
-    "extension.duplicate.config.open.desc": "Öffnet die neue Datei, nachdem sie dupliziert wurde. Gilt nicht für Verzeichnisse."
+    "extension.duplicate.config.open.desc": "Öffnet die neue Datei, nachdem sie dupliziert wurde. Gilt nicht für Verzeichnisse.",
+    "extension.duplicate.config.suffix.title": "Duplikat-Suffix",
+    "extension.duplicate.config.suffix.desc": "Das Suffix, das an duplizierte Datei-/Verzeichnisnamen angehängt wird. Kann eine leere Zeichenfolge sein.",
+    "extension.duplicate.config.enable-extension-change.title": "Duplizieren mit Erweiterungsänderung aktivieren",
+    "extension.duplicate.config.enable-extension-change.desc": "Aktiviert den Befehl 'Duplizieren (Erweiterung ändern)', der das Duplizieren von Dateien mit einer anderen Erweiterung ermöglicht.",
+    "extension.duplicate.open-settings.title": "Duplicate-Einstellungen öffnen"
 }

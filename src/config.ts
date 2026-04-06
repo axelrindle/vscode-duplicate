@@ -5,6 +5,8 @@ import { EXTENSION_ID } from './extension'
 
 export interface ConfigSchema {
     openFile: boolean
+    duplicateSuffix: string
+    enableDuplicateWithExtensionChange: boolean
 }
 
 type ConfigKey = keyof ConfigSchema

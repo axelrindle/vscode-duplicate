@@ -1,6 +1,12 @@
 {
     "extension.duplicate.title": "Duplicate",
+    "extension.duplicate.extension-change.title": "Duplicate (changing extension)",
 
     "extension.duplicate.config.open.title": "Open file",
-    "extension.duplicate.config.open.desc": "Open the new file after duplication. Ignored for directories."
+    "extension.duplicate.config.open.desc": "Open the new file after duplication. Ignored for directories.",
+    "extension.duplicate.config.suffix.title": "Duplicate Suffix",
+    "extension.duplicate.config.suffix.desc": "The suffix to append to duplicated file/directory names. Can be empty string.",
+    "extension.duplicate.config.enable-extension-change.title": "Enable Duplicate with Extension Change",
+    "extension.duplicate.config.enable-extension-change.desc": "Enable the 'Duplicate (changing extension)' command that allows duplicating files with a different extension.",
+    "extension.duplicate.open-settings.title": "Open Duplicate Settings"
 }

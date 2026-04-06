@@ -1,13 +1,13 @@
 import { basename, dirname } from 'node:path'
-import { FileSystemError, FileType, InputBoxValidationSeverity, Uri, window, workspace } from 'vscode'
+import { FileSystemError, FileType, InputBoxValidationSeverity, Uri, window, workspace, commands } from 'vscode'
 import Config from '../config'
 import l10n from '../l10n'
 
-function getCopyName(original: string, isDirectory: boolean): [string, number] {
+function getCopyName(original: string, isDirectory: boolean, suffix: string): [string, number] {
     const lastIndex = original.lastIndexOf('.')
 
     if (lastIndex === -1 || isDirectory) {
-        const newName = original + '-copy'
+        const newName = original + suffix
         return [
             newName,
             newName.length,
@@ -18,10 +18,10 @@ function getCopyName(original: string, isDirectory: boolean): [string, number] {
     let ext = original.slice(lastIndex + 1)
 
     if (lastIndex !== 0) {
-        name += '-copy'
+        name += suffix
     }
     else {
-        ext += '-copy'
+        ext += suffix
     }
 
     let newName
@@ -52,6 +52,133 @@ const fileTypeMap: Record<FileType, string> = {
     [FileType.Unknown]: 'file',
 }
 
+export async function duplicateWithExtensionChange(arg: Uri | undefined, config: Config) {
+    const fsPath = arg?.fsPath ?? window.activeTextEditor?.document.uri.fsPath
+    if (!fsPath) {
+        return
+    }
+
+    const oldFile = Uri.file(fsPath)
+    const oldStats = await workspace.fs.stat(oldFile)
+
+    // Only allow files, not directories
+    if (oldStats.type !== FileType.File) {
+        window.showErrorMessage(l10n.t('error.only-files'))
+        return
+    }
+
+    const file = basename(fsPath)
+    const directory = Uri.file(dirname(fsPath))
+
+    // Handle dotfiles (files starting with '.') differently
+    let baseName: string
+    let currentExtension: string
+    let inputValue: string
+
+    if (file.startsWith('.')) {
+        // For dotfiles, treat the whole filename as base and allow adding extensions
+        baseName = file
+        currentExtension = ''
+        inputValue = ''
+    } else {
+        // For regular files, use the existing logic
+        const lastIndex = file.lastIndexOf('.')
+        currentExtension = lastIndex !== -1 ? file.slice(lastIndex + 1) : ''
+        baseName = lastIndex !== -1 ? file.slice(0, lastIndex) : file
+        inputValue = currentExtension
+    }
+
+    const input = await window.showInputBox({
+        title: l10n.t('title.duplicate.extension-change'),
+        value: inputValue,
+        placeHolder: l10n.t('placeholder.extension'),
+        async validateInput(value) {
+            if (!value || value.trim() === '') {
+                return l10n.t('error.extension-required')
+            }
+            const newName = baseName + '.' + value
+            try {
+                const stats = await workspace.fs.stat(Uri.joinPath(directory, newName))
+                return {
+                    message: l10n.t('error.exists', {
+                        type: l10n.t(`filetype.${fileTypeMap[stats.type]}`),
+                        name: newName,
+                    }),
+                    severity: InputBoxValidationSeverity.Warning,
+                }
+            } catch (error) {
+                if (!(error instanceof FileSystemError) || error.code !== 'FileNotFound') {
+                    console.error(error)
+                    return `${error}`
+                }
+            }
+        },
+    })
+
+    if (input === undefined) {
+        return
+    }
+
+    const newName = baseName + '.' + input
+    const newFile = Uri.joinPath(directory, newName)
+
+    try {
+        const newStats = await workspace.fs.stat(newFile)
+        if (oldStats.type !== newStats.type) {
+            window.showErrorMessage(l10n.t('error.type-change'))
+            return
+        }
+
+        switch (newStats.type) {
+            case FileType.File:
+                const answer = await window.showQuickPick([
+                    l10n.t('action.yes'),
+                    l10n.t('action.no'),
+                ], {
+                    title: l10n.t(`title.overwrite.${FileType[newStats.type].toLowerCase()}`),
+                    canPickMany: false,
+                    ignoreFocusOut: true,
+                })
+
+                if (answer !== l10n.t('action.yes')) {
+                    return
+                }
+                break
+            default:
+                window.showErrorMessage(l10n.t(`error.refuse-overwrite.${FileType[newStats.type].toLowerCase()}`))
+                return
+        }
+    } catch (error) {
+        if (!(error instanceof FileSystemError) || error.code !== 'FileNotFound') {
+            console.error(error)
+            return
+        }
+    }
+
+    try {
+        await workspace.fs.copy(oldFile, newFile, {
+            overwrite: true,
+        })
+
+        if (config.get('openFile') && oldStats.type === FileType.File) {
+            if (newFile.path.endsWith('.ipynb')) {
+                const doc = await workspace.openNotebookDocument(newFile)
+                await window.showNotebookDocument(doc)
+            } else {
+                const doc = await workspace.openTextDocument(newFile)
+                await window.showTextDocument(doc)
+            }
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function openSettings() {
+    // Open the settings editor with the extension's configuration focused
+    await commands.executeCommand('workbench.action.openSettings', 'duplicate-file')
+}
+
 export default async function duplicate(arg: Uri | undefined, config: Config) {
     const fsPath = arg?.fsPath ?? window.activeTextEditor?.document.uri.fsPath
     if (!fsPath) {
@@ -63,7 +190,8 @@ export default async function duplicate(arg: Uri | undefined, config: Config) {
 
     const file = basename(fsPath)
     const isDirectory = oldStats.type == FileType.Directory
-    const [copyName, copyNameLength] = getCopyName(file, isDirectory)
+    const suffix = config.getOr('duplicateSuffix', '-copy')
+    const [copyName, copyNameLength] = getCopyName(file, isDirectory, suffix)
 
     const directory = Uri.file(dirname(fsPath))
 
