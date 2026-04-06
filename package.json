@@ -2,7 +2,7 @@
   "name": "duplicate-file",
   "displayName": "Duplicate Files",
   "description": "Duplicate files and directories.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "axelrindle",
   "engines": {
     "vscode": "^1.90.0"
@@ -29,13 +29,32 @@
       {
         "command": "duplicate-file.execute",
         "title": "%extension.duplicate.title%"
+      },
+      {
+        "command": "duplicate-file.executeWithExtensionChange",
+        "title": "%extension.duplicate.extension-change.title%"
+      },
+      {
+        "command": "duplicate-file.openSettings",
+        "title": "%extension.duplicate.open-settings.title%"
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "duplicate-file.openSettings",
+          "when": "workspaceFolderCount != 0"
+        }
+      ],
       "explorer/context": [
         {
           "command": "duplicate-file.execute",
           "group": "5_cutcopypaste@99"
+        },
+        {
+          "command": "duplicate-file.executeWithExtensionChange",
+          "group": "5_cutcopypaste@100",
+          "when": "config.duplicate-file.enableDuplicateWithExtensionChange && resourceExtname != ''"
         }
       ]
     },
@@ -48,6 +67,18 @@
             "default": true,
             "title": "%extension.duplicate.config.open.title%",
             "description": "%extension.duplicate.config.open.desc%"
+          },
+          "duplicate-file.duplicateSuffix": {
+            "type": "string",
+            "default": "-copy",
+            "title": "%extension.duplicate.config.suffix.title%",
+            "description": "%extension.duplicate.config.suffix.desc%"
+          },
+          "duplicate-file.enableDuplicateWithExtensionChange": {
+            "type": "boolean",
+            "default": false,
+            "title": "%extension.duplicate.config.enable-extension-change.title%",
+            "description": "%extension.duplicate.config.enable-extension-change.desc%"
           }
         }
       }

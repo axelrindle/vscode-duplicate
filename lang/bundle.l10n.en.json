@@ -15,5 +15,10 @@
     "error.type-change": "Can't change resource type!",
     "error.refuse-overwrite.file": "Refusing to overwrite existing file!",
     "error.refuse-overwrite.directory": "Refusing to overwrite existing directory!",
-    "error.exists": "A {type} with the name {name} does already exist!"
+    "error.exists": "A {type} with the name {name} does already exist!",
+    "error.only-files": "This command only works with files, not directories!",
+    "error.extension-required": "Extension is required!",
+
+    "title.duplicate.extension-change": "Enter new extension for the duplicated file:",
+    "placeholder.extension": "e.g., js, html, php"
 }

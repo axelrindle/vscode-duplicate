@@ -1,5 +1,5 @@
 import { ExtensionContext, Uri, commands, env } from 'vscode'
-import duplicate from './commands/duplicate'
+import duplicate, { duplicateWithExtensionChange, openSettings } from './commands/duplicate'
 import Config from './config'
 import l10n from './l10n'
 
@@ -16,6 +16,16 @@ export async function activate(context: ExtensionContext) {
     context.subscriptions.push(commands.registerCommand(
         `${EXTENSION_ID}.execute`,
         (uri?: Uri) => duplicate(uri, config)),
+    )
+
+    context.subscriptions.push(commands.registerCommand(
+        `${EXTENSION_ID}.executeWithExtensionChange`,
+        (uri?: Uri) => duplicateWithExtensionChange(uri, config)),
+    )
+
+    context.subscriptions.push(commands.registerCommand(
+        `${EXTENSION_ID}.openSettings`,
+        () => openSettings()),
     )
 }
 

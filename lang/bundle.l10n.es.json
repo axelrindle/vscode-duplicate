@@ -1,0 +1,24 @@
+{
+    "title.duplicate.file": "Introduzca un nombre para el archivo duplicado",
+    "title.duplicate.directory": "Introduzca un nombre para el directorio duplicado",
+
+    "title.overwrite.file": "Ya existe un archivo con el mismo nombre. ¿Sobreescribir?",
+    "title.overwrite.directory": "Ya existe un directorio con el mismo nombre. ¿Sobreescribir?",
+
+    "action.yes": "Sí",
+    "action.no": "No",
+
+    "filetype.directory": "directorio",
+    "filetype.file": "archivo",
+    "filetype.symlink": "enlace simbólico",
+
+    "error.type-change": "¡No se puede cambiar el tipo de recurso!",
+    "error.refuse-overwrite.file": "¡No se pudo sobreescribir el archivo existente!",
+    "error.refuse-overwrite.directory": "¡No se pudo sobreescribir el directorio existente!",
+    "error.exists": "¡Un {type} con el nombre {name} ya existe!",
+    "error.only-files": "¡Este comando solo funciona con archivos, no con directorios!",
+    "error.extension-required": "¡La extensión es obligatoria!",
+
+    "title.duplicate.extension-change": "Introduzca la nueva extensión para el archivo duplicado:",
+    "placeholder.extension": "ej.: js, html, php"
+}

@@ -1,0 +1,12 @@
+{
+    "extension.duplicate.title": "Duplicar",
+    "extension.duplicate.extension-change.title": "Duplicar (cambiando extensión)",
+
+    "extension.duplicate.config.open.title": "Abrir archivo",
+    "extension.duplicate.config.open.desc": "Abrir el nuevo archivo después de duplicarlo. Ignorado para directorios.",
+    "extension.duplicate.config.suffix.title": "Sufijo de duplicado",
+    "extension.duplicate.config.suffix.desc": "El sufijo a agregar a los nombres de archivos/directorios duplicados. Puede ser una cadena vacía.",
+    "extension.duplicate.config.enable-extension-change.title": "Habilitar duplicar cambiando extensión",
+    "extension.duplicate.config.enable-extension-change.desc": "Habilita el comando 'Duplicar (cambiando extensión)' que permite duplicar archivos con una extensión diferente.",
+    "extension.duplicate.open-settings.title": "Abrir configuración de Duplicate"
+}

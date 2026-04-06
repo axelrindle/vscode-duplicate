@@ -15,5 +15,10 @@
     "error.type-change": "Kann den Typen nicht ändern!",
     "error.refuse-overwrite.file": "Die Datei existiert bereits!",
     "error.refuse-overwrite.directory": "Das Verzeichnis existiert bereits!",
-    "error.exists": "{type} mit dem Namen {name} gibt es schon!"
+    "error.exists": "{type} mit dem Namen {name} gibt es schon!",
+    "error.only-files": "Dieser Befehl funktioniert nur mit Dateien, nicht mit Verzeichnissen!",
+    "error.extension-required": "Erweiterung ist erforderlich!",
+
+    "title.duplicate.extension-change": "Gib eine neue Erweiterung für die duplizierte Datei ein:",
+    "placeholder.extension": "z.B.: js, html, php"
 }
