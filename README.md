@@ -18,6 +18,10 @@ Easily duplicate files and directories in the explorer view:
 You'll be asked a name for the copy. If a file with the chosen name does already exist you may choose to overwrite it.
 Directories will not be overwritten.
 
+## Keybinding
+
+Starting from v2.0.0 the extension adds a default keybinding `Shift`+`Alt`+`D` / `Shift`+`Option`+`D`. It can be used in the explorer view.
+
 ## License
 
 [MIT](LICENSE)

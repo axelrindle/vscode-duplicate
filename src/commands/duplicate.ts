@@ -1,7 +1,22 @@
 import { basename, dirname } from 'node:path'
-import { FileSystemError, FileType, InputBoxValidationSeverity, Uri, window, workspace } from 'vscode'
+import { commands, env, FileSystemError, FileType, InputBoxValidationSeverity, Uri, window, workspace } from 'vscode'
 import Config from '../config'
 import l10n from '../l10n'
+
+// VS Code exposes the explorer selection to context-menu commands only.
+// A keybinding never receives it, so we borrow the built-in `copyFilePath`
+// command to read the focused resource off the clipboard and restore it
+// afterwards. See https://github.com/microsoft/vscode/issues/316820
+async function getExplorerSelectionPath(): Promise<string | undefined> {
+    const previousClipboard = await env.clipboard.readText()
+    try {
+        await commands.executeCommand('copyFilePath')
+        const path = await env.clipboard.readText()
+        return path.split(/\r?\n/)[0] || undefined
+    } finally {
+        await env.clipboard.writeText(previousClipboard)
+    }
+}
 
 function getCopyName(original: string, isDirectory: boolean): [string, number] {
     const lastIndex = original.lastIndexOf('.')
@@ -52,8 +67,13 @@ const fileTypeMap: Record<FileType, string> = {
     [FileType.Unknown]: 'file',
 }
 
-export default async function duplicate(arg: Uri | undefined, config: Config) {
-    const fsPath = arg?.fsPath ?? window.activeTextEditor?.document.uri.fsPath
+export default async function duplicate(arg: Uri | 'explorer' | undefined, config: Config) {
+    const fsPath = arg instanceof Uri
+        ? arg.fsPath
+        : arg === 'explorer'
+            ? await getExplorerSelectionPath()
+            : window.activeTextEditor?.document.uri.fsPath
+
     if (!fsPath) {
         return
     }

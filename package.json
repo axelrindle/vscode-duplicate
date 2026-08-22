@@ -39,6 +39,19 @@
         }
       ]
     },
+    "keybindings": [
+      {
+        "command": "duplicate-file.execute",
+        "key": "shift+alt+d",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "duplicate-file.execute",
+        "key": "shift+alt+d",
+        "when": "filesExplorerFocus && !inputFocus",
+        "args": "explorer"
+      }
+    ],
     "configuration": [
       {
         "title": "%extension.duplicate.title%",
